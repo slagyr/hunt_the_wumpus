@@ -1,10 +1,10 @@
-(ns hunt_the_wumpus.core-spec
+(ns hunt-the-wumpus.core-spec
   (:use
     [speclj.core]
     [joodo.spec-helpers.controller]
-    [hunt_the_wumpus.core]))
+    [hunt-the-wumpus.core]))
 
-(describe "hunt_the_wumpus"
+(describe "hunt-the-wumpus"
 
   (with-mock-rendering)
   (with-routes app-handler)

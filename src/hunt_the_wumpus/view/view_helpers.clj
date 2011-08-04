@@ -1,4 +1,4 @@
-(ns hunt_the_wumpus.view.view-helpers
+(ns hunt-the-wumpus.view.view-helpers
   "Put helper functions for views in this namespace."
   (:use
     [joodo.views :only (render-partial *view-context*)]

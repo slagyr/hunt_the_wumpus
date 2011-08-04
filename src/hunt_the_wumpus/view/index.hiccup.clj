@@ -15,4 +15,4 @@
 [:p "Copyright (C) 2011 Micah Martin All Rights Reserved."]
 [:p "Distributed under the The MIT License."]
 
-[:p "This app was generated for hunt_the_wumpus."]
+[:p "This app was generated for hunt-the-wumpus."]
