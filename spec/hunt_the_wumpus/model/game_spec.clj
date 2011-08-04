@@ -19,8 +19,37 @@
       (should= {:arrows [1]} (items game))
       (should= {"joe" {}} (players game))))
 
-  (it "reports the status of an empty cavern"
-    (let [game (create-game :caverns {1 {}} :players {"zelda" {:cavern 1}})]
-      (should= [] (report game "zelda"))))
+  (context "reporting"
 
+    (it "status of an empty cavern"
+      (should=
+        {}
+        (report "zelda" (create-game :caverns {1 {}} :players {"zelda" {:cavern 1}}))))
+
+    (it "paths from the current cavern"
+      (should=
+        {:paths [:north, :east, :south, :west]}
+        (report "zelda"
+          (create-game
+            :caverns {1 {:north 2 :east 3 :south 4 :west 5}}
+            :players {"zelda" {:cavern 1}}))))
+
+    (it "arrow found"
+      (should=
+        {:items-found [:arrow]}
+        (report "zelda"
+          (create-game
+            :caverns {1 {}}
+            :players {"zelda" {:cavern 1}}
+            :items {1 [:arrow]}))))
+
+    (it "wumpus nearby"
+      (should=
+        {:paths [:north] :hazzards-detected [:wumpus]}
+        (report "zelda"
+          (create-game
+            :caverns {1 {:north 2}}
+            :players {"zelda" {:cavern 1}}
+            :hazzards {:wumpus [2]}))))
+    )
   )
