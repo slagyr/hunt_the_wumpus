@@ -17,7 +17,7 @@ Classic game running on Joodo (Clojure web framework)
     cd hunt_the_wumpus
     lein deps
 
-4. Start up the server
+4 Start up the server
 
     joodo server
 
