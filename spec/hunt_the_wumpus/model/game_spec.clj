@@ -8,14 +8,14 @@
   (it "creating an empty game"
     (let [game (create-game)]
       (should= {} (caverns game))
-      (should= {} (hazzards game))
+      (should= {} (hazards game))
       (should= {} (items game))
       (should= {} (players game))))
 
   (it "creates an populated game"
-    (let [game (create-game :caverns {1 {}} :hazzards {:pits [1]} :items {:arrows [1]} :players {"joe" {}})]
+    (let [game (create-game :caverns {1 {}} :hazards {:pits [1]} :items {:arrows [1]} :players {"joe" {}})]
       (should= {1 {}} (caverns game))
-      (should= {:pits [1]} (hazzards game))
+      (should= {:pits [1]} (hazards game))
       (should= {:arrows [1]} (items game))
       (should= {"joe" {}} (players game))))
 
@@ -45,11 +45,11 @@
 
     (it "wumpus nearby"
       (should=
-        {:paths [:north] :hazzards-detected [:wumpus]}
+        {:paths [:north] :hazards-detected [:wumpus]}
         (report "zelda"
           (create-game
             :caverns {1 {:north 2}}
             :players {"zelda" {:cavern 1}}
-            :hazzards {:wumpus [2]}))))
+            :hazards {:wumpus [2]}))))
     )
   )
