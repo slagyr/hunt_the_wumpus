@@ -34,12 +34,19 @@
     report))
 
 (defn- report-hazards-detected [report game cavern-id]
-  (if-let [adjacent-caverns (vals (get (caverns game) cavern-id))]
-    (assoc report :hazards-detected [])
-    report))
+  (let [adjacent-caverns (vals (get (caverns game) cavern-id))
+        hazards (hazards game)]
+    (if-let [hazards-detected (keys
+                                (filter (fn [[hazard-name locations]]
+                                          (some (set locations)
+                                                adjacent-caverns))
+                                        hazards))]
+      (assoc report :hazards-detected hazards-detected)
+      report)))
 
 (defn report [player game]
   (let [cavern-id (:cavern (get (players game) player))]
     (-> {}
       (report-paths game cavern-id)
-      (report-items-found game cavern-id))))
+      (report-items-found game cavern-id)
+      (report-hazards-detected game cavern-id))))
