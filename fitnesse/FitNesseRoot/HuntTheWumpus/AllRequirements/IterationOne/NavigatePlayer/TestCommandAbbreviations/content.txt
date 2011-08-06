@@ -5,37 +5,37 @@ There are a number of abbreviations for the navigation commands.  You can see th
 ''Go East''
 !|script|
 |put|player|in cavern|1|
-|enter command|Go East|
+|enter command|Go East|for|player|
 |check|cavern|2|has|player|true|
 
 ''E -> Go East''
 !|script|
 |put|player|in cavern|1|
-|enter command|E|
+|enter command|E|for|player|
 |check|cavern|2|has|player|true|
 
 ''e -> Go East''
 !|script|
 |put|player|in cavern|1|
-|enter command|e|
+|enter command|e|for|player|
 |check|cavern|2|has|player|true|
 
 ''go east -> Go East''
 !|script|
 |put|player|in cavern|1|
-|enter command|go east|
+|enter command|go east|for|player|
 |check|cavern|2|has|player|true|
 
 ''East -> Go East''
 !|script|
 |put|player|in cavern|1|
-|enter command|East|
+|enter command|East|for|player|
 |check|cavern|2|has|player|true|
 
 ''east -> Go East''
 !|script|
 |put|player|in cavern|1|
-|enter command|east|
+|enter command|east|for|player|
 |check|cavern|2|has|player|true|
 
 ----
@@ -43,37 +43,37 @@ There are a number of abbreviations for the navigation commands.  You can see th
 ''Go South''
 !|script|
 |put|player|in cavern|1|
-|enter command|Go South|
+|enter command|Go South|for|player|
 |check|cavern|8|has|player|true|
 
 ''S -> Go South''
 !|script|
 |put|player|in cavern|1|
-|enter command|S|
+|enter command|S|for|player|
 |check|cavern|8|has|player|true|
 
 ''s -> Go South''
 !|script|
 |put|player|in cavern|1|
-|enter command|s|
+|enter command|s|for|player|
 |check|cavern|8|has|player|true|
 
 ''go south-> Go South''
 !|script|
 |put|player|in cavern|1|
-|enter command|go south|
+|enter command|go south|for|player|
 |check|cavern|8|has|player|true|
 
 ''South -> Go South''
 !|script|
 |put|player|in cavern|1|
-|enter command|South|
+|enter command|South|for|player|
 |check|cavern|8|has|player|true|
 
 ''south -> Go South''
 !|script|
 |put|player|in cavern|1|
-|enter command|south|
+|enter command|south|for|player|
 |check|cavern|8|has|player|true|
 
 ----
@@ -81,37 +81,37 @@ There are a number of abbreviations for the navigation commands.  You can see th
 ''Go West''
 !|script|
 |put|player|in cavern|5|
-|enter command|Go West|
+|enter command|Go West|for|player|
 |check|cavern|6|has|player|true|
 
 ''W -> Go West''
 !|script|
 |put|player|in cavern|5|
-|enter command|W|
+|enter command|W|for|player|
 |check|cavern|6|has|player|true|
 
 ''w -> Go West''
 !|script|
 |put|player|in cavern|5|
-|enter command|w|
+|enter command|w|for|player|
 |check|cavern|6|has|player|true|
 
 ''go west -> Go West''
 !|script|
 |put|player|in cavern|5|
-|enter command|go west|
+|enter command|go west|for|player|
 |check|cavern|6|has|player|true|
 
 ''West -> Go West''
 !|script|
 |put|player|in cavern|5|
-|enter command|West|
+|enter command|West|for|player|
 |check|cavern|6|has|player|true|
 
 ''west -> Go West''
 !|script|
 |put|player|in cavern|5|
-|enter command|west|
+|enter command|west|for|player|
 |check|cavern|6|has|player|true|
 
 ----
@@ -119,37 +119,37 @@ There are a number of abbreviations for the navigation commands.  You can see th
 ''Go North''
 !|script|
 |put|player|in cavern|5|
-|enter command|Go North|
+|enter command|Go North|for|player|
 |check|cavern|4|has|player|true|
 
 ''N -> Go North''
 !|script|
 |put|player|in cavern|5|
-|enter command|N|
+|enter command|N|for|player|
 |check|cavern|4|has|player|true|
 
 ''n -> Go North''
 !|script|
 |put|player|in cavern|5|
-|enter command|n|
+|enter command|n|for|player|
 |check|cavern|4|has|player|true|
 
 ''go north -> Go North''
 !|script|
 |put|player|in cavern|5|
-|enter command|go north|
+|enter command|go north|for|player|
 |check|cavern|4|has|player|true|
 
 ''North -> Go North''
 !|script|
 |put|player|in cavern|5|
-|enter command|North|
+|enter command|North|for|player|
 |check|cavern|4|has|player|true|
 
 ''north -> Go North''
 !|script|
 |put|player|in cavern|5|
-|enter command|north|
+|enter command|north|for|player|
 |check|cavern|4|has|player|true|
 
 
