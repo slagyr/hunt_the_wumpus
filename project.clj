@@ -2,5 +2,6 @@
   :description "FIXME: write description"
   :dependencies [[org.clojure/clojure "1.2.1"]
                  [joodo "0.6.0-SNAPSHOT"]]
-  :dev-dependencies [[speclj "1.4.0"]]
+  :dev-dependencies [[speclj "1.4.0"]
+                     [clojureslim "0.0.1-SNAPSHOT"]]
   :test-path "spec")

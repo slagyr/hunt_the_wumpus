@@ -5,11 +5,12 @@ The project will be run in very short iterations.
 !|Change the paths below to the appropriate locations.|
 
 !define TEST_SYSTEM {slim}
-!define TEST_RUNNER {clojure.main clojureslim/script/clojureslim.clj}
-!define COMMAND_PATTERN {java -cp %p %m}
+!define COMMAND_PATTERN {lein run -m clojureslim}
 
+{{{!define COMMAND_PATTERN {java -cp %p %m}
 !|Classpath Separator: will need to be ; for Windows|
 !define PATH_SEPARATOR {:}
+
 
 !|Paths for ClojureSlim.|
 !path fitnesse.jar
@@ -19,3 +20,4 @@ The project will be run in very short iterations.
 !|Path for the fixtures.|
 !path ../spec
 
+}}}

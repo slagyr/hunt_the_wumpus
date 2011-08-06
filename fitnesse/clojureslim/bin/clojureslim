@@ -1,1 +1,0 @@
-java -cp dist/fitnesse.jar:clojureslim/lib/clojure-1.2.1.jar:clojureslim/src clojure.main clojureslim/script/clojureslim.clj 8081
