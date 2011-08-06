@@ -1,6 +1,53 @@
+html {
+    background-image: url("../images/bg.jpg");
+}
+
 body {
-    background: #e3b200;
+    background-image: url("../images/bg_light.jpg");
     font-family: sans-serif;
-    width: 600px;
+    width: 1024px;
+    min-height: 600px;
     margin: auto;
+    color: #bf3030;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+img {
+    border-width: 0;
+}
+
+div#title {
+    text-align: center;
+    padding-top: 20px;
+}
+
+div#small-body {
+    width: 400px;
+    margin: 50px auto auto;
+    padding: 15px;
+    border: 2px solid #679b00;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background-color: #ddd;
+    text-align: right;
+}
+
+div#small-body h2 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+div#small-body input.text {
+    width: 100%;
+    font-size: 18pt;
+    color: #679b00;
+}
+
+div#small-body input.submit {
+    margin-top: 10px;
+    font-size: 16pt;
 }
