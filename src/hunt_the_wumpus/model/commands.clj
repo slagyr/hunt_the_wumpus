@@ -12,7 +12,14 @@
      :south ["S" "s" "south" "South" "Go South" "go south"]
      :north ["N" "n" "north" "North" "Go North" "go north"]}))
 
+(defn rest? [command]
+  (some #{command} ["rest" "Rest" "r" "R"]))
 
-(defn translate-command [command]
-  {:command :go
-   :direction (translate-direction command)})
+(defn translate-command [raw-command]
+  (if-let [direction (translate-direction raw-command)]
+    {:command :go :direction direction}
+    (if (rest? raw-command)
+      {:command :rest}
+      (str "I don't know how to " raw-command "."))))
+
+

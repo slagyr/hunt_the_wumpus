@@ -10,15 +10,21 @@
   (dosync
     (alter (:players game) update-player-location player location)))
 
-(defn move-player-in-direction!  [game player direction]
+(defn- possible-paths [game player]
+  (-> @(:caverns game)
+      (get (player-location game player))))
+
+(defn possible-directions [game player]
+  (keys (possible-paths game player)))
+
+(defn move-player-in-direction! [game player direction]
   {:pre [(some #{direction} [:east :west :north :south])]}
   (dosync
-    (if-let [new-location (-> @(:caverns game)
-                                  (get (player-location game player))
-                                  (get direction))]
+    (if-let [new-location (-> (possible-paths game player)
+                              (get direction))]
       (move-player-to-location! game player new-location)
       (alter (:messages game)
              conj
-             (str "You can't go " (name direction) " from here.")))))
+             {:error (str "You can't go " (name direction) " from here.")}))))
 
 
