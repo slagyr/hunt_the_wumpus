@@ -5,35 +5,35 @@ Directions are listed in the order of north, south, east, west.
 
 |script|
 |put|player|in cavern|1|
-|enter command|Rest|
+|enter command|Rest|for|player|
 |check|message|You can go south and east from here.|was printed|true|
 
 |script|
-|enter command|East|
+|enter command|East|for|player|
 |check|message|You can go east and west from here.|was printed|true|
 
 |script|
-|enter command|East|
+|enter command|East|for|player|
 |check|message|You can go south and west from here.|was printed|true|
 
 |script|
-|enter command|South|
+|enter command|South|for|player|
 |check|message|You can go north and south from here.|was printed|true|
 
 |script|
-|enter command|South|
+|enter command|South|for|player|
 |check|message|You can go north and west from here.|was printed|true|
 
 |script|
-|enter command|West|
+|enter command|West|for|player|
 |check|message|You can go east and west from here.|was printed|true|
 
 |script|
-|enter command|West|
+|enter command|West|for|player|
 |check|message|You can go north and east from here.|was printed|true|
 
 |script|
-|enter command|North|
+|enter command|North|for|player|
 |check|message|You can go north and south from here.|was printed|true|
 
 ''Now clear the map''
@@ -63,17 +63,17 @@ Directions are listed in the order of north, south, east, west.
 
 |script|
 |put|player|in cavern|3|
-|enter command|rest|
+|enter command|rest|for|player|
 |check|message|You can go north, south, east and west from here.|was printed|true|
 
 |script|
 |put|player|in cavern|9|
-|enter command|rest|
+|enter command|rest|for|player|
 |check|message|You can go south, east and west from here.|was printed|true|
 
 |script|
 |put|player|in cavern|1|
-|enter command|rest|
+|enter command|rest|for|player|
 |check|message|You can go east from here.|was printed|true|
 
 

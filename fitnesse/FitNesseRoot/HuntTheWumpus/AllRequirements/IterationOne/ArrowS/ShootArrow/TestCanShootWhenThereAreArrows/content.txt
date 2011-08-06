@@ -8,23 +8,23 @@ The quiver should have one less arrow.
 |script|
 |set quiver to|5|
 |put|player|in cavern|3|
-|enter command|shoot east|
+|enter command|shoot east|for|player|
 |check|message|The arrow flies away in silence.|was printed|true|
 |check|arrows in quiver|4|
 |check|arrows in cavern|5|1|
 
 |script|
-|enter command|shoot south|
+|enter command|shoot south|for|player|
 |check|arrows in quiver|3|
 |check|arrows in cavern|9|1|
 
 |script|
-|enter command|shoot west|
+|enter command|shoot west|for|player|
 |check|arrows in quiver|2|
 |check|arrows in cavern|1|1|
 
 |script|
-|enter command|shoot north|
+|enter command|shoot north|for|player|
 |check|arrows in quiver|1|
 |check|arrows in cavern|6|1|
 

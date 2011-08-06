@@ -9,7 +9,7 @@ Create a very simple map. [1]-[2]
 |script|
 |put|player|in cavern|1|
 |set quiver to|1|
-|enter command|shoot west|
+|enter command|shoot west|for|player|
 |check|message|The arrow bounced off the wall and killed you.|was printed|true|
 |check|message|Game over.|was printed|true|
 |check|game terminated|true|

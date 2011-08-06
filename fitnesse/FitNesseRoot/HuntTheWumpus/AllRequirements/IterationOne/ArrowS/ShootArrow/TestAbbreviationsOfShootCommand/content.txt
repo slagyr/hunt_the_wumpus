@@ -11,90 +11,90 @@ Check all the abbreviations of the shoot command.
 
  * Try the north abbreviations.
 |script|
-|enter command|shoot north|
+|enter command|shoot north|for|player|
 |check|arrows in cavern|${destination}|1|
 
 |script|
-|enter command|s north|
+|enter command|s north|for|player|
 |check|arrows in cavern|${destination}|2|
 
 |script|
-|enter command|shoot n|
+|enter command|shoot n|for|player|
 |check|arrows in cavern|${destination}|3|
 
 |script|
-|enter command|s n|
+|enter command|s n|for|player|
 |check|arrows in cavern|${destination}|4|
 
 |script|
-|enter command|sn|
+|enter command|sn|for|player|
 |check|arrows in cavern|${destination}|5|
 
 !define destination {9}
  * Try the south abbreviations.
 |script|
-|enter command|shoot south|
+|enter command|shoot south|for|player|
 |check|arrows in cavern|${destination}|1|
 
 |script|
-|enter command|s south|
+|enter command|s south|for|player|
 |check|arrows in cavern|${destination}|2|
 
 |script|
-|enter command|shoot s|
+|enter command|shoot s|for|player|
 |check|arrows in cavern|${destination}|3|
 
 |script|
-|enter command|s s|
+|enter command|s s|for|player|
 |check|arrows in cavern|${destination}|4|
 
 |script|
-|enter command|ss|
+|enter command|ss|for|player|
 |check|arrows in cavern|${destination}|5|
 
 
 !define destination {1}
  * Try the west abbreviations.
 |script|
-|enter command|shoot west|
+|enter command|shoot west|for|player|
 |check|arrows in cavern|${destination}|1|
 
 |script|
-|enter command|s west|
+|enter command|s west|for|player|
 |check|arrows in cavern|${destination}|2|
 
 |script|
-|enter command|shoot w|
+|enter command|shoot w|for|player|
 |check|arrows in cavern|${destination}|3|
 
 |script|
-|enter command|s w|
+|enter command|s w|for|player|
 |check|arrows in cavern|${destination}|4|
 
 |script|
-|enter command|sw|
+|enter command|sw|for|player|
 |check|arrows in cavern|${destination}|5|
 
 !define destination {5}
 
  * Try the east abbreviations.
 |script|
-|enter command|shoot east|
+|enter command|shoot east|for|player|
 |check|arrows in cavern|${destination}|1|
 
 |script|
-|enter command|s east|
+|enter command|s east|for|player|
 |check|arrows in cavern|${destination}|2|
 
 |script|
-|enter command|shoot e|
+|enter command|shoot e|for|player|
 |check|arrows in cavern|${destination}|3|
 
 |script|
-|enter command|s e|
+|enter command|s e|for|player|
 |check|arrows in cavern|${destination}|4|
 
 |script|
-|enter command|se|
+|enter command|se|for|player|
 |check|arrows in cavern|${destination}|5|
 
