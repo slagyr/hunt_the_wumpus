@@ -1,6 +1,6 @@
 (ns hunt-the-wumpus.model.game)
 
-(deftype Game [caverns hazards items players])
+(defrecord Game [caverns hazards items players])
 
 (defn create-game [& args]
   (let [options (apply hash-map args)]
@@ -11,16 +11,16 @@
       (ref (or (:players options) {})))))
 
 (defn caverns [game]
-  @(.caverns game))
+  @(:caverns game))
 
 (defn hazards [game]
-  @(.hazards game))
+  @(:hazards game))
 
 (defn items [game]
-  @(.items game))
+  @(:items game))
 
 (defn players [game]
-  @(.players game))
+  @(:players game))
 
 (defn- report-paths [report game cavern-id]
   (if-let [paths (keys (get (caverns game) cavern-id))]
@@ -49,3 +49,4 @@
       (report-paths game cavern-id)
       (report-items-found game cavern-id)
       (report-hazards-detected game cavern-id))))
+

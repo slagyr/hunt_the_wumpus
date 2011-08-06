@@ -19,8 +19,6 @@
       (should= {:arrows [1]} (items game))
       (should= {"joe" {}} (players game))))
 
-
-
 ;  (context "reporting"
 ;
 ;    (it "status of an empty cavern"

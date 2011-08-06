@@ -22,7 +22,7 @@
   (execute [this] (swap! map update-in [@start] assoc @direction @end))
   (end-table [this]
     (dosync
-      (ref-set (.caverns @game) @map))))
+      (ref-set (:caverns @game) @map))))
 
 (defn make-map []
   (MapMaker. (atom {}) (atom nil) (atom nil) (atom nil)))
@@ -32,7 +32,7 @@
 
 (defn put-in-cavern [this player location]
   (dosync
-    (alter (.players @game) update-in [player] assoc :cavern location)))
+    (alter (:players @game) update-in [player] assoc :cavern location)))
 
 (defn enter-command [this command]
   )
