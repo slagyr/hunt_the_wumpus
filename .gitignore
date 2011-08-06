@@ -6,4 +6,8 @@ pom.xml
 .lein-deps-sum
 .idea
 *.iml
+/fitnesse/temp
+/fitnesse/FitNesseRoot/ErrorLogs
+/fitnesse/FitNesseRoot/RecentChange
+/fitnesse/FitNesseRoot/files/testResultss
 
