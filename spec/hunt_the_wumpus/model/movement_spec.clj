@@ -20,5 +20,20 @@
       (move-player-in-direction! game "player-1" :east)
       (should= 2 (player-location game "player-1"))))
 
+  (it "moves a player in a wrong direction"
+    (let [game {:players (ref {"player-1" {:cavern 1}})
+                :caverns (ref {1 {:west 2}})
+                :messages (ref [])}]
+      (move-player-in-direction! game "player-1" :east)
+      (should= 1 (player-location game "player-1"))
+      (should= ["You can't go east from here"] @(:messages game))))
+
+  (it "moves a player in an illegal direction"
+    (let [game {:players (ref {"player-1" {:cavern 1}})
+                :caverns (ref {1 {:west 2}})
+                :messages (ref [])}]
+      (should-throw (move-player-in-direction! game "player-1" "E"))))
+
+
 )
 

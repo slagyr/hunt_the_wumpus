@@ -1,7 +1,8 @@
 (ns hunt-the-wumpus.fixtures
   (:use
+    [hunt-the-wumpus.model.commands :only (translate-direction)]
     [hunt-the-wumpus.model.game :only (create-game caverns players)]
-    [hunt-the-wumpus.model.map :only (opposite-direction)]
+    [hunt-the-wumpus.model.map :only (add-paths opposite-direction)]
     [hunt-the-wumpus.model.movement :only (move-player-to-location!
                                            move-player-in-direction!
                                            player-location)]))
@@ -17,15 +18,6 @@
   (set-end [this start])
   (set-direction [this start]))
 
-(defn- translate-direction [command]
-  (let [upcase-command (.toUpperCase command)]
-    (prn upcase-command)
-    ({"W" :west
-      "E" :east
-      "N" :north
-      "S" :south}
-     upcase-command)))
-
 (defrecord MapMaker [map start end direction]
   AddPath
   (set-start [this value] (reset! start value))
@@ -33,10 +25,10 @@
   (set-direction [this value] (reset! direction value))
   SlimTable
   (execute [this]
-    (let [dir (translate-direction @direction)]
-      (swap! map update-in [@start] assoc dir @end)
-      (swap! map update-in [@end] assoc (opposite-direction dir) @start)
-           ))
+    (swap! map add-paths
+           :start @start
+           :end @end
+           :direction (translate-direction @direction)))
   (end-table [this]
     (dosync
       (ref-set (:caverns @game) @map))))
@@ -56,11 +48,10 @@
                              (translate-direction command)))
 
 (defn cavern-has [this n player]
-  (= n
-     (player-location @game player)))
+  (= n (player-location @game player)))
 
 (defn message-was-printed [this message]
-  )
+  (= message (last @(:messages @game))))
 
 (defn freeze-wumpus [this v]
   )
