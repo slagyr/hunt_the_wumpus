@@ -2,7 +2,6 @@
 
 (deftype Game [caverns hazards items players])
 
-
 (defn create-game [& args]
   (let [options (apply hash-map args)]
     (Game.
