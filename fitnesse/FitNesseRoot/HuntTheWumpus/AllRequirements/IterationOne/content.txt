@@ -1,0 +1,10 @@
+^NavigatePlayer
+^SmellWumpus
+^ArrowS
+^FallInPit
+^HearPit
+^KillWumpus
+^WumpusMovesRandomly
+^BatTransportRandomly
+^HearBats
+

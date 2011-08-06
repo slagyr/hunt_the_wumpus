@@ -1,0 +1,4 @@
+|script|
+|reject|enter command|zorch|
+|check|message|I don't know how to zorch.|was printed|true|
+

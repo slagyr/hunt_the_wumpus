@@ -1,0 +1,21 @@
+The project will be run in very short iterations.  
+
+|'''^IterationOne'''|Current Requirements.|
+
+!|Change the paths below to the appropriate locations.|
+
+!define TEST_SYSTEM {slim}
+!define TEST_RUNNER {clojure.main clojureslim/script/clojureslim.clj}
+!define COMMAND_PATTERN {java -cp %p %m}
+
+!|Classpath Separator: will need to be ; for Windows|
+!define PATH_SEPARATOR {:}
+
+!|Paths for ClojureSlim.|
+!path fitnesse.jar
+!path clojureslim/lib/clojure-1.2.1.jar
+!path clojureslim/src
+
+!|Path for the fixtures.|
+!path ../spec
+
