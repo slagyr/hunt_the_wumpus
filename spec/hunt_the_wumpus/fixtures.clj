@@ -1,10 +1,5 @@
 (ns hunt-the-wumpus.fixtures)
 
-(defrecord GameDriver [])
-
-(defn game-driver []
-  (GameDriver.))
-
 (defprotocol AddPath
   (set-start [this start])
   (set-end [this start])
@@ -30,9 +25,6 @@
 
 (defn cavern-has [this n player]
   )
-
-(defn make-player [this]
-  {})
 
 (defn message-was-printed [this message]
   )
