@@ -23,9 +23,6 @@
     (if-let [new-location (-> (possible-paths game player)
                               (get direction))]
       (move-player-to-location! game player new-location)
-      (alter (:messages game)
-             assoc
-             :error
-             (str "You can't go " (name direction) " from here.")))))
+      {:error (str "You can't go " (name direction) " from here.")})))
 
 

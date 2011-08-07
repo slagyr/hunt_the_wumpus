@@ -2,18 +2,15 @@
   (:require [clojure.string :as string])
   (:use
     [hunt-the-wumpus.model.commands :only (translate-direction
-                                           translate-command)]
-    [hunt-the-wumpus.model.game :only (create-game
-                                       caverns
-                                       players
-                                       perform-command)]
-    [hunt-the-wumpus.model.map :only (add-paths
-                                      opposite-direction)]
+      translate-command)]
+    [hunt-the-wumpus.model.game :as game :only (perform-command)]
+    [hunt-the-wumpus.model.map :only (add-paths opposite-direction)]
     [hunt-the-wumpus.model.movement :only (move-player-to-location!
-                                           move-player-in-direction!
-                                           player-location)]))
+      move-player-in-direction!
+      player-location)]))
 
-(def game (atom (create-game)))
+(def game (atom (game/new-game)))
+(def last-report (atom nil))
 
 (defprotocol SlimTable
   (execute [this])
@@ -32,9 +29,9 @@
   SlimTable
   (execute [this]
     (swap! map add-paths
-           :start @start
-           :end @end
-           :direction (translate-direction @direction)))
+      :start @start
+      :end @end
+      :direction (translate-direction @direction)))
   (end-table [this]
     (dosync
       (ref-set (:caverns @game) @map))))
@@ -48,26 +45,29 @@
 (defn put-in-cavern [this player location]
   (move-player-to-location! @game player location))
 
+(defn- command-spec->thunk [command-spec player]
+  (cond
+    (= :go (:command command-spec))
+    #(move-player-in-direction! @game player (:direction command-spec))
+    (= :rest (:command command-spec))
+    #(hash-map :ack "You rested.")
+    :else
+    #(hash-map :error command-spec)))
+
 (defn enter-command-for [this raw-command player]
-  (let [command-spec (translate-command raw-command)]
-    (perform-command game
-                     player
-                     (cond (= :go (:command command-spec))
-                            #(move-player-in-direction! @game player (:direction command-spec))
-                           (= :rest (:command command-spec))
-                            #()
-                           :else
-                            #(do (alter (:messages @game) assoc :error command-spec)
-                                 false)))))
+  (let [command-spec (translate-command raw-command)
+        thunk (command-spec->thunk command-spec player)
+        report (perform-command game player thunk)]
+    (reset! last-report report)))
 
 (defn error-message [this]
-  (:error @(:messages @game)))
+  (:error @last-report))
 
 (defn possible-directions-message [this]
   (string/join ","
-               (sort
-                 (map name
-                      (:possible-directions @(:messages @game))))))
+    (sort
+      (map name
+        (:possible-directions @last-report)))))
 
 (defn cavern-has [this n player]
   (= n (player-location @game player)))
@@ -75,7 +75,7 @@
 (defn message-was-printed [this message]
   (boolean
     (some #{message}
-          @(:messages @game))))
+      @last-report)))
 
 (defn freeze-wumpus [this v]
   )

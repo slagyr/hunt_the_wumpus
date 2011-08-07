@@ -22,11 +22,10 @@
 
   (it "moves a player in a wrong direction"
     (let [game {:players (ref {"player-1" {:cavern 1}})
-                :caverns (ref {1 {:west 2}})
-                :messages (ref {})}]
-      (move-player-in-direction! game "player-1" :east)
+                :caverns (ref {1 {:west 2}})}
+          report (move-player-in-direction! game "player-1" :east)]
       (should= 1 (player-location game "player-1"))
-      (should= {:error "You can't go east from here."} @(:messages game))))
+      (should= {:error "You can't go east from here."} report)))
 
   (it "moves a player in an illegal direction"
     (let [game {:players (ref {"player-1" {:cavern 1}})

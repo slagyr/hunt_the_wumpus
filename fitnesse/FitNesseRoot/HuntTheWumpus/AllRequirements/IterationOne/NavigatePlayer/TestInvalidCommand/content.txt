@@ -1,4 +1,4 @@
 |script|
-|reject|enter command|zorch|for|player|
+|enter command|zorch|for|player|
 |check|error message|I don't know how to zorch.|
 

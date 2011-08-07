@@ -1,16 +1,15 @@
 (ns hunt-the-wumpus.model.game
   (:use [hunt-the-wumpus.model.movement :only (possible-directions)]))
 
-(defrecord Game [caverns hazards items players messages])
+(defrecord Game [caverns hazards items players])
 
-(defn create-game [& args]
+(defn new-game [& args]
   (let [options (apply hash-map args)]
     (Game.
       (ref (or (:caverns options) {}))
       (ref (or (:hazards options) {}))
       (ref (or (:items options) {}))
-      (ref (or (:players options) {}))
-      (ref (or (:messages options) {})))))
+      (ref (or (:players options) {})))))
 
 (defn caverns [game]
   @(:caverns game))
@@ -29,18 +28,8 @@
 
 (defn perform-command [game player command-thunk]
   (dosync
-    (ref-set (:messages @game) {})
-
-    (let [result (command-thunk)]
-
-      ; TODO: add game-over messages instead if that's the outcome
-
-      (alter (:messages @game)
-             assoc
-             :possible-directions
-             (possible-directions @game player))
-
-      result)))
+    (let [report (command-thunk)]
+      (assoc report :possible-directions (possible-directions @game player)))))
 
 ;(defn- report-paths [report game cavern-id]
 ;  (if-let [paths (keys (get (caverns game) cavern-id))]
