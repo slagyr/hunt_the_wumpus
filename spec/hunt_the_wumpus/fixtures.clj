@@ -7,7 +7,9 @@
     [hunt-the-wumpus.model.map :only (add-paths opposite-direction)]
     [hunt-the-wumpus.model.movement :only (move-player-to-location
       move-player-in-direction
-      player-location)]))
+      player-location)]
+    [hunt-the-wumpus.model.player :only (place-player)]
+    [hunt-the-wumpus.model.hazard :only (place-hazard)]))
 
 (def game-ref (ref (game/new-game)))
 (def last-report (atom nil))
@@ -42,9 +44,11 @@
 (defn clear-map [this]
   )
 
-(defn put-in-cavern [this player location]
+(defn put-in-cavern [this thing location]
   (dosync
-    (alter game-ref move-player-to-location player location)))
+    (cond
+      (some #{"wumpus"} [thing]) (alter game-ref place-hazard (keyword thing) location)
+      :else (alter game-ref place-player thing location))))
 
 (defn- command-spec->thunk [command-spec player]
   (cond
@@ -53,7 +57,7 @@
     (= :rest (:command command-spec))
     (fn [game player] game)
     :else
-    (fn [game player] (throw Exception command-spec))))
+    (fn [game player] (throw (Exception. command-spec)))))
 
 (defn enter-command-for [this raw-command player]
   (let [command-spec (translate-command raw-command)
@@ -71,15 +75,14 @@
         (:possible-directions @last-report)))))
 
 (defn cavern-has [this n player]
-  (println "n: " n)
-  (println "player: " player)
-  (println "@game-ref: " @game-ref)
   (= n (player-location @game-ref player)))
 
 (defn message-was-printed [this message]
+  (println "@last-report: " @last-report)
+  (println "(apply concat (vals @last-report)): " (apply concat (vals @last-report)))
   (boolean
     (some #{message}
-      @last-report)))
+      (apply concat (vals @last-report)))))
 
 (defn freeze-wumpus [this v]
   )

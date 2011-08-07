@@ -2,9 +2,12 @@
   (:use
     [clojure.set :only (difference)]))
 
+(defn place-player [game player cavern]
+  (update-in game [:players player] assoc :cavern cavern))
+
 (defn join-game [game player-name]
   (let [start-cavern (first (sort (keys (:caverns game))))]
-    (update-in game [:players player-name] assoc :cavern start-cavern)))
+    (place-player game player-name start-cavern)))
 
 (defn- new-players [before after]
   (let [players-before (set (keys (:players before)))
