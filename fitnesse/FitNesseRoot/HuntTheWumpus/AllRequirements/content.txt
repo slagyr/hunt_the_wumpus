@@ -2,7 +2,16 @@ The project will be run in very short iterations.
 
 |'''^IterationOne'''|Current Requirements.|
 
-!|Change the paths below to the appropriate locations.|
-
 !define TEST_SYSTEM {slim}
+
+!|Make sure Leiningen is on your PATH|
+
+!|Change the COMMAND_PATTERN below depending on your OS.|
+
+|Command for a Unix/Linux/OSX run|
 !define COMMAND_PATTERN {lein run -m clojureslim -v}
+
+|Command for a Windows run|
+{{{
+!define COMMAND_PATTERN {lein.bat run -m clojureslim -v}
+}}}
