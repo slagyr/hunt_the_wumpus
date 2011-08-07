@@ -5,4 +5,3 @@
   :dev-dependencies [[speclj "1.4.0"]
                      [clojureslim "0.0.1-SNAPSHOT"]]
   :test-path "spec")
-
