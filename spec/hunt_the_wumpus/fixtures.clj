@@ -4,7 +4,8 @@
     [hunt-the-wumpus.model.commands :only (translate-direction
                                            translate-command)]
     [hunt-the-wumpus.model.game :only (create-game caverns players)]
-    [hunt-the-wumpus.model.map :only (add-paths opposite-direction)]
+    [hunt-the-wumpus.model.map :only (add-paths
+                                      opposite-direction)]
     [hunt-the-wumpus.model.movement :only (move-player-to-location!
                                            move-player-in-direction!
                                            player-location
@@ -47,28 +48,29 @@
 
 (defn enter-command-for [this raw-command player]
   (dosync
-    (ref-set (:messages @game) [])
+    (ref-set (:messages @game) {})
     (let [command (translate-command raw-command)
           result (cond (= :go (:command command))
                          (move-player-in-direction! @game player (:direction command))
                        (= :rest (:command command))
                          nil
                        :else
-                         (do (alter (:messages @game) conj {:error command})
+                         (do (alter (:messages @game) assoc :error command)
                              false))]
       (alter (:messages @game)
-             conj
-             {:possible-directions (possible-directions @game player)})
+             assoc
+             :possible-directions
+             (possible-directions @game player))
       result)))
 
 (defn error-message [this]
-  (some :error @(:messages @game)))
+  (:error @(:messages @game)))
 
 (defn possible-directions-message [this]
   (string/join ","
                (sort
                  (map name
-                      (some :possible-directions @(:messages @game))))))
+                      (:possible-directions @(:messages @game))))))
 
 (defn cavern-has [this n player]
   (= n (player-location @game player)))

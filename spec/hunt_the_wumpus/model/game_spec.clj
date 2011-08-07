@@ -10,14 +10,16 @@
       (should= {} (caverns game))
       (should= {} (hazards game))
       (should= {} (items game))
-      (should= {} (players game))))
+      (should= {} (players game))
+      (should= {} (messages game))))
 
   (it "creates an populated game"
-    (let [game (create-game :caverns {1 {}} :hazards {:pits [1]} :items {:arrows [1]} :players {"joe" {}})]
+    (let [game (create-game :caverns {1 {}} :hazards {:pits [1]} :items {:arrows [1]} :players {"joe" {}} :messages {:error "something"})]
       (should= {1 {}} (caverns game))
       (should= {:pits [1]} (hazards game))
       (should= {:arrows [1]} (items game))
-      (should= {"joe" {}} (players game))))
+      (should= {"joe" {}} (players game))
+      (should= {:error "something"} (messages game))))
 
 ;  (context "reporting"
 ;

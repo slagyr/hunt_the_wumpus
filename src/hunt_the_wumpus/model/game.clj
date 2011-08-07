@@ -9,7 +9,7 @@
       (ref (or (:hazards options) {}))
       (ref (or (:items options) {}))
       (ref (or (:players options) {}))
-      (ref (or (:messages options) [])))))
+      (ref (or (:messages options) {})))))
 
 (defn caverns [game]
   @(:caverns game))
