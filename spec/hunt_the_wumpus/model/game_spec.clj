@@ -13,13 +13,26 @@
       (should= {} (players game))
       (should= {} (messages game))))
 
-  (it "creates an populated game"
+  (it "creates a populated game"
     (let [game (create-game :caverns {1 {}} :hazards {:pits [1]} :items {:arrows [1]} :players {"joe" {}} :messages {:error "something"})]
       (should= {1 {}} (caverns game))
       (should= {:pits [1]} (hazards game))
       (should= {:arrows [1]} (items game))
       (should= {"joe" {}} (players game))
       (should= {:error "something"} (messages game))))
+
+  (it "performs a command"
+    (let [game (atom {:messages (ref {:error "stale"})
+                      :caverns (ref {1 {:east 2}})
+                      :players (ref {"player-1" {:cavern 1}})})
+          result-str (with-out-str
+                       (perform-command game
+                                        "player-1"
+                                        #(print "doing something")))]
+      (should= "doing something" result-str)
+      (should= {:possible-directions [:east]} @(:messages @game))
+             ))
+
 
 ;  (context "reporting"
 ;

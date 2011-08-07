@@ -22,16 +22,15 @@
       :east ["E" "e" "east" "East" "Go East" "go east"]))
 
   (it "translates west commands"
-      (assert-command-translations
-        :west ["W" "w" "west" "West" "Go West" "go west"]))
+    (assert-command-translations
+      :west ["W" "w" "west" "West" "Go West" "go west"]))
 
   (it "translates south commands"
-      (assert-command-translations
-        :south ["S" "s" "south" "South" "Go South" "go south"]))
+    (assert-command-translations
+      :south ["S" "s" "south" "South" "Go South" "go south"]))
 
   (it "translates north commands"
-      (assert-command-translations
-        :north ["N" "n" "north" "North" "Go North" "go north"]))
-
+    (assert-command-translations
+      :north ["N" "n" "north" "North" "Go North" "go north"]))
 )
 

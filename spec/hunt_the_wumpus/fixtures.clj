@@ -3,13 +3,15 @@
   (:use
     [hunt-the-wumpus.model.commands :only (translate-direction
                                            translate-command)]
-    [hunt-the-wumpus.model.game :only (create-game caverns players)]
+    [hunt-the-wumpus.model.game :only (create-game
+                                       caverns
+                                       players
+                                       perform-command)]
     [hunt-the-wumpus.model.map :only (add-paths
                                       opposite-direction)]
     [hunt-the-wumpus.model.movement :only (move-player-to-location!
                                            move-player-in-direction!
-                                           player-location
-                                           possible-directions)]))
+                                           player-location)]))
 
 (def game (atom (create-game)))
 
@@ -47,21 +49,16 @@
   (move-player-to-location! @game player location))
 
 (defn enter-command-for [this raw-command player]
-  (dosync
-    (ref-set (:messages @game) {})
-    (let [command (translate-command raw-command)
-          result (cond (= :go (:command command))
-                         (move-player-in-direction! @game player (:direction command))
-                       (= :rest (:command command))
-                         nil
-                       :else
-                         (do (alter (:messages @game) assoc :error command)
-                             false))]
-      (alter (:messages @game)
-             assoc
-             :possible-directions
-             (possible-directions @game player))
-      result)))
+  (let [command-spec (translate-command raw-command)]
+    (perform-command game
+                     player
+                     (cond (= :go (:command command-spec))
+                            #(move-player-in-direction! @game player (:direction command-spec))
+                           (= :rest (:command command-spec))
+                            #()
+                           :else
+                            #(do (alter (:messages @game) assoc :error command-spec)
+                                 false)))))
 
 (defn error-message [this]
   (:error @(:messages @game)))

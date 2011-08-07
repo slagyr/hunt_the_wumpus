@@ -1,4 +1,5 @@
-(ns hunt-the-wumpus.model.game)
+(ns hunt-the-wumpus.model.game
+  (:use [hunt-the-wumpus.model.movement :only (possible-directions)]))
 
 (defrecord Game [caverns hazards items players messages])
 
@@ -26,31 +27,46 @@
 (defn messages [game]
   @(:messages game))
 
-(defn- report-paths [report game cavern-id]
-  (if-let [paths (keys (get (caverns game) cavern-id))]
-    (assoc report :paths paths)
-    report))
+(defn perform-command [game player command-thunk]
+  (dosync
+    (ref-set (:messages @game) {})
 
-(defn- report-items-found [report game cavern-id]
-  (if-let [items-found (get (items game) cavern-id)]
-    (assoc report :items-found items-found)
-    report))
+    (let [result (command-thunk)]
 
-(defn- report-hazards-detected [report game cavern-id]
-  (let [adjacent-caverns (vals (get (caverns game) cavern-id))
-        hazards (hazards game)]
-    (if-let [hazards-detected (keys
-                                (filter (fn [[hazard-name locations]]
-                                          (some (set locations)
-                                                adjacent-caverns))
-                                        hazards))]
-      (assoc report :hazards-detected hazards-detected)
-      report)))
+      ; TODO: add game-over messages instead if that's the outcome
 
-(defn report [player game]
-  (let [cavern-id (:cavern (get (players game) player))]
-    (-> {}
-      (report-paths game cavern-id)
-      (report-items-found game cavern-id)
-      (report-hazards-detected game cavern-id))))
+      (alter (:messages @game)
+             assoc
+             :possible-directions
+             (possible-directions @game player))
 
+      result)))
+
+;(defn- report-paths [report game cavern-id]
+;  (if-let [paths (keys (get (caverns game) cavern-id))]
+;    (assoc report :paths paths)
+;    report))
+;
+;(defn- report-items-found [report game cavern-id]
+;  (if-let [items-found (get (items game) cavern-id)]
+;    (assoc report :items-found items-found)
+;    report))
+;
+;(defn- report-hazards-detected [report game cavern-id]
+;  (let [adjacent-caverns (vals (get (caverns game) cavern-id))
+;        hazards (hazards game)]
+;    (if-let [hazards-detected (keys
+;                                (filter (fn [[hazard-name locations]]
+;                                          (some (set locations)
+;                                                adjacent-caverns))
+;                                        hazards))]
+;      (assoc report :hazards-detected hazards-detected)
+;      report)))
+;
+;(defn report [player game]
+;  (let [cavern-id (:cavern (get (players game) player))]
+;    (-> {}
+;      (report-paths game cavern-id)
+;      (report-items-found game cavern-id)
+;      (report-hazards-detected game cavern-id))))
+;
