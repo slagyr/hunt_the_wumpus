@@ -20,4 +20,6 @@
     (let [response (do-post "/login" :params {:player-name "Joe"})]
       (should= "Joe" (:player-name (:session response)))))
 
+
+
   )

@@ -51,3 +51,117 @@ div#small-body input.submit {
     margin-top: 10px;
     font-size: 16pt;
 }
+
+div#large-body {
+    width: 600px;
+    margin: 25px auto auto;
+    padding: 15px;
+    border: 2px solid #679b00;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background-color: #ddd;
+}
+
+div#report {
+    height: 250px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+div#report p {
+    font-size: 14pt;
+    margin: 0 0 5px 0;
+}
+
+div#report p.direction {
+    color: #666;
+}
+
+div#report p.hazzard {
+    color: red;
+}
+
+div#report p.error {
+    color: #009999;
+}
+
+div#movement, div#shooting {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    width: 206px;
+}
+
+div#shooting {
+    float: right;
+}
+
+div#movement h4, div#shooting h4 {
+    color: #679b00;
+    font-size: 16pt;
+    margin-bottom: 10px;
+}
+
+div.north, div.south {
+    text-align: center;
+}
+
+div.east, div.west {
+    display: inline-block;
+    width: 50%;
+}
+
+div.east {
+    text-align: right;
+}
+
+div.west {
+    text-align: left;
+}
+
+div.north a, div.south a {
+    display: inline-block;
+    width: 56px;
+    height: 75px;
+}
+
+div.east a, div.west a {
+    display: inline-block;
+    width: 75px;
+    height: 56px;
+}
+
+div.north a:link, div.north a:active, div.north a:visited {
+    background-image: url(../images/north.png)
+}
+
+div.north a:hover {
+    background-image: url(../images/north_active.png)
+}
+
+div.east a:link, div.east a:active, div.east a:visited {
+    background-image: url(../images/east.png)
+}
+
+div.east a:hover {
+    background-image: url(../images/east_active.png)
+}
+
+div.west a:link, div.west a:active, div.west a:visited {
+    background-image: url(../images/west.png)
+}
+
+div.west a:hover {
+    background-image: url(../images/west_active.png)
+}
+
+div.south a:link, div.south a:active, div.south a:visited {
+    background-image: url(../images/south.png)
+}
+
+div.south a:hover {
+    background-image: url(../images/south_active.png)
+}
