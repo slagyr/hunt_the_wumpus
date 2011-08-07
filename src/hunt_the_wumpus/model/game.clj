@@ -1,6 +1,6 @@
 (ns hunt-the-wumpus.model.game
   (:use
-    [hunt-the-wumpus.model.report :only (cavern-report hazard-report)]))
+    [hunt-the-wumpus.model.report :only (cavern-report hazard-report player-report)]))
 
 (defn new-game [& args]
   (let [options (apply hash-map args)]
@@ -10,7 +10,8 @@
      :players (or (:players options) {})}))
 
 (defn- report [before after player]
-  {:hazard-messages (hazard-report after player)
+  {:player-messages (player-report before after player)
+   :hazard-messages (hazard-report after player)
    :cavern-messages (cavern-report after player)})
 
 (defn perform-command [game-ref player command-thunk]

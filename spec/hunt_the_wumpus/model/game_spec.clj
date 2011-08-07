@@ -2,7 +2,7 @@
   (:use
     [speclj.core]
     [hunt-the-wumpus.model.game]
-    [hunt-the-wumpus.model.report :only (hazard-report)]))
+    [hunt-the-wumpus.model.report :only (hazard-report player-report)]))
 
 (describe "Game"
 
@@ -31,37 +31,8 @@
       (let [report (perform-command (ref (new-game)) "player-1" (fn [game player]))]
         (should= ["Woohoo!"] (:hazard-messages report)))))
 
-    ;  (context "reporting"
-    ;
-    ;    (it "status of an empty cavern"
-    ;      (should=
-    ;        {}
-    ;        (report "zelda" (new-game :caverns {1 {}} :players {"zelda" {:cavern 1}}))))
-    ;
-    ;    (it "paths from the current cavern"
-    ;      (should=
-    ;        {:paths [:north, :east, :south, :west]}
-    ;        (report "zelda"
-    ;          (new-game
-    ;            :caverns {1 {:north 2 :east 3 :south 4 :west 5}}
-    ;            :players {"zelda" {:cavern 1}}))))
-    ;
-    ;    (it "arrow found"
-    ;      (should=
-    ;        {:items-found [:arrow]}
-    ;        (report "zelda"
-    ;          (new-game
-    ;            :caverns {1 {}}
-    ;            :players {"zelda" {:cavern 1}}
-    ;            :items {1 [:arrow]}))))
-    ;
-    ;    (it "wumpus nearby"
-    ;      (should=
-    ;        {:paths [:north] :hazards-detected [:wumpus]}
-    ;        (report "zelda"
-    ;          (new-game
-    ;            :caverns {1 {:north 2}}
-    ;            :players {"zelda" {:cavern 1}}
-    ;            :hazards {:wumpus [2]}))))
-    ;    )
+  (it "reports player events"
+    (binding [player-report (fn [& args] ["Yahoo!"])]
+      (let [report (perform-command (ref (new-game)) "player-1" (fn [game player]))]
+        (should= ["Yahoo!"] (:player-messages report)))))
     )
