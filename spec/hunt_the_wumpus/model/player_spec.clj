@@ -2,15 +2,19 @@
   (:use
     [speclj.core]
     [hunt-the-wumpus.model.player]
-    [hunt-the-wumpus.model.game :only (new-game players)]))
+    [hunt-the-wumpus.model.game :only (new-game)]))
 
 (describe "player"
 
   (it "joins the game"
     (let [game (new-game :caverns {1 {}})
-          report (join-game! game "Thor")]
-      (should= "You have joined the game" (:ack report))
-      (should= {"Thor" {:cavern 1}} (players game))))
+          after (join-game game "Thor")]
+      (should= {"Thor" {:cavern 1}} (:players after))))
 
+  (it "acknowledges a player joining the game"
+    (let [before (new-game)
+          after (new-game :players {"Thor" {:cavern 1}})]
+      (should= ["You have joined the game"] (player-report before after "Thor"))
+      (should= ["Thor has joined the game"] (player-report before after "Edgar"))))
 
   )

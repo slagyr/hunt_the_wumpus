@@ -5,11 +5,11 @@
       translate-command)]
     [hunt-the-wumpus.model.game :as game :only (perform-command)]
     [hunt-the-wumpus.model.map :only (add-paths opposite-direction)]
-    [hunt-the-wumpus.model.movement :only (move-player-to-location!
-      move-player-in-direction!
+    [hunt-the-wumpus.model.movement :only (move-player-to-location
+      move-player-in-direction
       player-location)]))
 
-(def game (atom (game/new-game)))
+(def game-ref (ref (game/new-game)))
 (def last-report (atom nil))
 
 (defprotocol SlimTable
@@ -34,7 +34,7 @@
       :direction (translate-direction @direction)))
   (end-table [this]
     (dosync
-      (ref-set (:caverns @game) @map))))
+      (alter game-ref assoc :caverns @map))))
 
 (defn make-map []
   (MapMaker. (atom {}) (atom nil) (atom nil) (atom nil)))
@@ -43,21 +43,22 @@
   )
 
 (defn put-in-cavern [this player location]
-  (move-player-to-location! @game player location))
+  (dosync
+    (alter game-ref move-player-to-location player location)))
 
 (defn- command-spec->thunk [command-spec player]
   (cond
     (= :go (:command command-spec))
-    #(move-player-in-direction! @game player (:direction command-spec))
+    (fn [game player] (move-player-in-direction game player (:direction command-spec)))
     (= :rest (:command command-spec))
-    #(hash-map :ack "You rested.")
+    (fn [game player] game)
     :else
-    #(hash-map :error command-spec)))
+    (fn [game player] (throw Exception command-spec))))
 
 (defn enter-command-for [this raw-command player]
   (let [command-spec (translate-command raw-command)
         thunk (command-spec->thunk command-spec player)
-        report (perform-command game player thunk)]
+        report (perform-command game-ref player thunk)]
     (reset! last-report report)))
 
 (defn error-message [this]
@@ -70,7 +71,10 @@
         (:possible-directions @last-report)))))
 
 (defn cavern-has [this n player]
-  (= n (player-location @game player)))
+  (println "n: " n)
+  (println "player: " player)
+  (println "@game-ref: " @game-ref)
+  (= n (player-location @game-ref player)))
 
 (defn message-was-printed [this message]
   (boolean
