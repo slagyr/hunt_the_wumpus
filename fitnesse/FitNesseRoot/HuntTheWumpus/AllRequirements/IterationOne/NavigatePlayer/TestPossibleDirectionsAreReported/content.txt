@@ -6,35 +6,59 @@ Directions are listed in the order of north, south, east, west.
 |script|
 |put|player|in cavern|1|
 |enter command|Rest|for|player|
-|check|possible directions message|east,south|
+|check|message|You can go north.|was printed|false|
+|check|message|You can go east.|was printed|true|
+|check|message|You can go west.|was printed|false|
+|check|message|You can go south.|was printed|true|
 
 |script|
 |enter command|East|for|player|
-|check|possible directions message|east,west|
+|check|message|You can go north.|was printed|false|
+|check|message|You can go east.|was printed|true|
+|check|message|You can go west.|was printed|true|
+|check|message|You can go south.|was printed|false|
 
 |script|
 |enter command|East|for|player|
-|check|possible directions message|south,west|
+|check|message|You can go north.|was printed|false|
+|check|message|You can go east.|was printed|false|
+|check|message|You can go west.|was printed|true|
+|check|message|You can go south.|was printed|true|
 
 |script|
 |enter command|South|for|player|
-|check|possible directions message|north,south|
+|check|message|You can go north.|was printed|true|
+|check|message|You can go east.|was printed|false|
+|check|message|You can go west.|was printed|false|
+|check|message|You can go south.|was printed|true|
 
 |script|
 |enter command|South|for|player|
-|check|possible directions message|north,west|
+|check|message|You can go north.|was printed|true|
+|check|message|You can go east.|was printed|false|
+|check|message|You can go west.|was printed|true|
+|check|message|You can go south.|was printed|false|
 
 |script|
 |enter command|West|for|player|
-|check|possible directions message|east,west|
+|check|message|You can go north.|was printed|false|
+|check|message|You can go east.|was printed|true|
+|check|message|You can go west.|was printed|true|
+|check|message|You can go south.|was printed|false|
 
 |script|
 |enter command|West|for|player|
-|check|possible directions message|east,north|
+|check|message|You can go north.|was printed|true|
+|check|message|You can go east.|was printed|true|
+|check|message|You can go west.|was printed|false|
+|check|message|You can go south.|was printed|false|
 
 |script|
 |enter command|North|for|player|
-|check|possible directions message|north,south|
+|check|message|You can go north.|was printed|true|
+|check|message|You can go east.|was printed|false|
+|check|message|You can go west.|was printed|false|
+|check|message|You can go south.|was printed|true|
 
 ''Now clear the map''
 |script|
@@ -64,16 +88,25 @@ Directions are listed in the order of north, south, east, west.
 |script|
 |put|player|in cavern|3|
 |enter command|rest|for|player|
-|check|possible directions message|east,north,south,west|
+|check|message|You can go north.|was printed|true|
+|check|message|You can go east.|was printed|true|
+|check|message|You can go west.|was printed|true|
+|check|message|You can go south.|was printed|true|
 
 |script|
 |put|player|in cavern|9|
 |enter command|rest|for|player|
-|check|possible directions message|east,south,west|
+|check|message|You can go north.|was printed|false|
+|check|message|You can go east.|was printed|true|
+|check|message|You can go west.|was printed|true|
+|check|message|You can go south.|was printed|true|
 
 |script|
 |put|player|in cavern|1|
 |enter command|rest|for|player|
-|check|possible directions message|east|
+|check|message|You can go north.|was printed|false|
+|check|message|You can go east.|was printed|true|
+|check|message|You can go west.|was printed|false|
+|check|message|You can go south.|was printed|false|
 
 

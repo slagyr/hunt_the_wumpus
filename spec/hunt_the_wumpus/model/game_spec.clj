@@ -2,7 +2,7 @@
   (:use
     [speclj.core]
     [hunt-the-wumpus.model.game]
-    [hunt-the-wumpus.model.hazard :only (hazard-report)]))
+    [hunt-the-wumpus.model.report :only (hazard-report)]))
 
 (describe "Game"
 
@@ -24,7 +24,7 @@
     (let [game-ref (ref (new-game :caverns {1 {:east 2}} :players {"player-1" {:cavern 1}}))
           report (perform-command game-ref "player-1" (fn [game player] (assoc game :foo player)))]
       (should= "player-1" (:foo @game-ref))
-      (should= [:east] (:possible-directions report))))
+      (should= ["You can go east."] (:cavern-messages report))))
 
   (it "reports hazards"
     (binding [hazard-report (fn [& args] ["Woohoo!"])]

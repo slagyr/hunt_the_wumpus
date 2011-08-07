@@ -16,6 +16,9 @@
     (keys (get map room))
     []))
 
+(defn possible-paths [game cavern]
+  (get (:caverns game) cavern))
+
 (defn donut-map []
   {1 {:east 2 :south 8}
    2 {:east 3 :west 1}

@@ -1,14 +1,10 @@
 (ns hunt-the-wumpus.fixtures
   (:require [clojure.string :as string])
   (:use
-    [hunt-the-wumpus.model.commands :only (translate-direction
-      translate-command)]
+    [hunt-the-wumpus.model.commands :only (translate-direction translate-command)]
     [hunt-the-wumpus.model.game :as game :only (perform-command)]
     [hunt-the-wumpus.model.map :only (add-paths opposite-direction)]
-    [hunt-the-wumpus.model.movement :only (move-player-to-location
-      move-player-in-direction
-      player-location)]
-    [hunt-the-wumpus.model.player :only (place-player)]
+    [hunt-the-wumpus.model.player :only (place-player player-location move-player-in-direction)]
     [hunt-the-wumpus.model.hazard :only (place-hazard)]))
 
 (def game-ref (ref (game/new-game)))
@@ -68,11 +64,11 @@
 (defn error-message [this]
   (:error @last-report))
 
-(defn possible-directions-message [this]
-  (string/join ","
-    (sort
-      (map name
-        (:possible-directions @last-report)))))
+;(defn possible-directions-message [this]
+;  (string/join ","
+;    (sort
+;      (map name
+;        (:possible-directions @last-report)))))
 
 (defn cavern-has [this n player]
   (= n (player-location @game-ref player)))

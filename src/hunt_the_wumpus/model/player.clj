@@ -1,25 +1,24 @@
 (ns hunt-the-wumpus.model.player
   (:use
-    [clojure.set :only (difference)]))
+    [hunt-the-wumpus.model.map :only (possible-paths)]))
 
 (defn place-player [game player cavern]
   (update-in game [:players player] assoc :cavern cavern))
+
+(defn player-location [game player]
+  (:cavern (get (:players game) player)))
 
 (defn join-game [game player-name]
   (let [start-cavern (first (sort (keys (:caverns game))))]
     (place-player game player-name start-cavern)))
 
-(defn- new-players [before after]
-  (let [players-before (set (keys (:players before)))
-        players-after (set (keys (:players after)))]
-    (difference players-after players-before)))
+(defn move-player-to-location [game player location]
+  (update-in game [:players player] assoc :cavern location))
 
-(defn- new-player-report [new-player player]
-  (if (= new-player player)
-    "You have joined the game"
-    (format "%s has joined the game" new-player)))
-
-(defn player-report [before after player]
-  (let [report []]
-    (concat report (map #(new-player-report % player) (new-players before after)))))
+(defn move-player-in-direction [game player direction]
+  {:pre [(some #{direction} [:east :west :north :south])]}
+  (let [location (player-location game player)]
+    (if-let [new-location (-> (possible-paths game location) (get direction))]
+      (move-player-to-location game player new-location)
+      (throw (Exception. (str "You can't go " (name direction) " from here."))))))
 

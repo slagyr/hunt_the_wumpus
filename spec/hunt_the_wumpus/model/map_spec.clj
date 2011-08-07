@@ -22,13 +22,13 @@
   (it "adds paths to an empty map"
     (should= {1 {:north 2}
               2 {:south 1}}
-             (add-paths {} :start 1 :end 2 :direction :north)))
+      (add-paths {} :start 1 :end 2 :direction :north)))
 
   (it "adds paths to a populated map"
     (should= {1 {:north 2}
               2 {:south 1 :west 3}
               3 {:east 2}}
-             (-> {}
-                 (add-paths :start 1 :end 2 :direction :north)
-                 (add-paths :start 2 :end 3 :direction :west))))
-)
+      (-> {}
+        (add-paths :start 1 :end 2 :direction :north)
+        (add-paths :start 2 :end 3 :direction :west))))
+  )
