@@ -7,3 +7,4 @@
 
 !see .HuntTheWumpus.ArrowS.PickUpArrow
 
+!see .HuntTheWumpus.SmellWumpus
