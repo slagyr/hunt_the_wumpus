@@ -19,7 +19,8 @@
         player (:player-name (:session *request*))
         report (perform-command *game* player command)]
     (-> (redirect "/console")
-      (update-in [:session] assoc :report report))))
+      (update-in [:session] assoc :report report)
+      (update-in [:session] assoc :game @*game*))))
 
 (defn- shoot [direction]
   (-> (redirect "/console")

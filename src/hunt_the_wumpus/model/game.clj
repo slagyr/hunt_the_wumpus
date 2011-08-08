@@ -40,7 +40,7 @@
             after (alter game-ref update-game command-thunk player)]
         (report before after player))
       (catch Exception e
-        (.printStackTrace e)
+;        (.printStackTrace e)
         {:error (.getMessage e)}))))
 
 (def *game*

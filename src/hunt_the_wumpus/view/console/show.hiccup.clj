@@ -20,6 +20,33 @@
       [:div.west [:a {:href "/command/move/west"}]]
       [:div.east [:a {:href "/command/move/east"}]]
       [:div.south [:a {:href "/command/move/south"}]]]
+     [:div#decor
+      [:pre "
+     .           .
+     |           |
+     ||         ||
+     ||         ||
+    /~~\\       /~~\\
+   |    \\_____/    |
+   |  II        II  |
+   |  II        II  |
+   |  II        II  |
+   |               /
+   |        ~~-~~|~
+   |       {     !
+   |       {  !
+   |        ~~!~
+   |             \\
+    \\            /
+      \\        /
+        =====
+       (     )
+    ---{     }---
+        +++++
+         | |
+         | |
+
+      "]]
      [:div#shooting
       [:h4 "Shoot"]
       [:div.north [:a {:href "/command/shoot/north"}]]

@@ -10,7 +10,8 @@
 (defn- successful-login [name]
   (let [report (perform-command *game* name join-game)]
     (-> (redirect "/console")
-      (update-in [:session] assoc :player-name name :report report))))
+      (update-in [:session] assoc :player-name name :report report)
+      (update-in [:session] assoc :game @*game*))))
 
 (defn- process-login []
   (let [params (:params *request*)

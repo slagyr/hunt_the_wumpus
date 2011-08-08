@@ -107,6 +107,14 @@ div#movement, div#shooting {
     width: 206px;
 }
 
+div#decor {
+    display: inline-block;
+    font-size: 5pt;
+    color: black;
+    font-weight: bold;
+    padding-left: 45px;
+}
+
 div#shooting {
     float: right;
 }
