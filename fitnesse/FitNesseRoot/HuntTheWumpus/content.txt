@@ -35,3 +35,5 @@ Each turn the player is given a description of where he is, and what directions 
 ----
 !3 Detailed Requirements can be found here: ^AllRequirements.
 !3 Utility Pages ^AssertionPages
+
+!contents -R
