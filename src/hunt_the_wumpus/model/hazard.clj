@@ -2,7 +2,7 @@
   (:use
     [hunt-the-wumpus.model.player :only (player-location)]))
 
-(def hazards #{:wumpus})
+(def hazards #{:wumpus :bats})
 
 (defn hazard? [thing]
   (not (nil? (some hazards [(keyword thing)]))))
@@ -12,6 +12,3 @@
 
 (defn hazard-locations [game hazard]
   (get-in game [:hazards hazard]))
-
-
-

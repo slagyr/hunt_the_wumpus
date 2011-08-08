@@ -37,6 +37,7 @@
       (->
         (new-game :caverns (donut-map))
         (place-hazard :wumpus 1)
+        (place-hazard :bats 2)
         (place-player "Thor" 5)))
 
     (it "reports no detected wumpus"
@@ -45,6 +46,10 @@
     (it "reports detected wumpus"
       (let [game (place-player @game "Thor" 2)]
         (should= ["You smell the Wumpus."] (hazard-report game "Thor"))))
+
+    (it "reports detected bats"
+      (let [game (place-player @game "Thor" 3)]
+        (should= ["You hear chirping."] (hazard-report game "Thor"))))
 
     (it "reports death by wumpus"
       (let [game (place-player @game "Thor" 1)]

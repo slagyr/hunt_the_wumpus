@@ -20,4 +20,7 @@
     (should= true (hazard? "wumpus"))
     (should= true (hazard? :wumpus)))
 
+  (it "knows that bats is a hazard"
+    (should= true (hazard? "bats"))
+    (should= true (hazard? :bats)))
   )

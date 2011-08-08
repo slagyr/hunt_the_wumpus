@@ -26,6 +26,8 @@
 (defmulti report-hazard identity)
 (defmethod report-hazard :wumpus [hazard]
   "You smell the Wumpus.")
+(defmethod report-hazard :bats [hazard]
+  "You hear chirping.")
 
 (defn- hazards-adjacent-to [game origin]
   (let [adjacent-caverns (set (vals (get (:caverns game) origin)))
