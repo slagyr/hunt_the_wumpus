@@ -1,6 +1,6 @@
 When a player moves into a cavern with arrows in it, he automatically picks those arrows up.   The games tells the player that he picked up an arrow, and also tells the player how many arrows he has.
 
-!include .HuntTheWumpus.AllRequirements.IterationOne.DonutMap
+!include .HuntTheWumpus.DonutMap
 
 |script|
 |put|player|in cavern|1|

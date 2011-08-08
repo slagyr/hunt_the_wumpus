@@ -1,5 +1,5 @@
 !c !3 Overview of Requirements.
-Hunt the Wumpus is a simple console adventure game in which the player navigates through a maze and tries to kill a ''Wumpus''.    
+Hunt the Wumpus is a simple adventure game in which the player navigates through a maze and tries to kill a ''Wumpus''.    
 
 Each turn the player is given a description of where he is, and what directions he can move in.  He is then asked to choose an action.  Legal actions are:
 
@@ -33,7 +33,19 @@ Each turn the player is given a description of where he is, and what directions 
   * If you are near the wumpus you will ''"smell the wumpus"''.
 
 ----
-!3 Detailed Requirements can be found here: ^AllRequirements.
-!3 Utility Pages ^AssertionPages
+
+!define TEST_SYSTEM {slim}
+
+!|Make sure Leiningen is on your PATH|
+
+!|Change the COMMAND_PATTERN below depending on your OS.|
+
+|Command for a Unix/Linux/OSX run|
+!define COMMAND_PATTERN {lein run -m clojureslim -v}
+
+|Command for a Windows run|
+{{{
+!define COMMAND_PATTERN {lein.bat run -m clojureslim -v}
+}}}
 
 !contents -R

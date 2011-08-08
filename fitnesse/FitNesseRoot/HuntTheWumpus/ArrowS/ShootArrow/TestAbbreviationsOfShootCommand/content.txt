@@ -1,6 +1,6 @@
 Check all the abbreviations of the shoot command.
 
-!include .HuntTheWumpus.AllRequirements.IterationOne.ArrowS.ShootArrow.CrossMap
+!include .HuntTheWumpus.CrossMap
 
 |script|
 |note|lets have lots of arrows to shoot|

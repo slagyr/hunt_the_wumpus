@@ -3,7 +3,7 @@ The arrow should go as far as possible, and then hit a wall.
 The arrow should be left in that cavern where it stopped.
 The quiver should have one less arrow.
 
-!include .HuntTheWumpus.AllRequirements.IterationOne.ArrowS.ShootArrow.CrossMap
+!include .HuntTheWumpus.CrossMap
 
 |script|
 |set quiver to|5|
