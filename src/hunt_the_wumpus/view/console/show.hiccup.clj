@@ -4,7 +4,9 @@
      [:div#report
       (when (:error report)
         [:p.error (:error report)])
-      (for [message (:hazzard-messages report)]
+      (for [message (:game-over-messages report)]
+        [:p.game-over message])
+      (for [message (:hazard-messages report)]
         [:p.hazard message])
       (for [message (:player-messages report)]
         [:p.player message])

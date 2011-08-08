@@ -80,7 +80,11 @@ div#report p.cavern {
     color: #666;
 }
 
-div#report p.hazzard {
+div#report p.hazard {
+    color: red;
+}
+
+div#report p.game-over {
     color: red;
 }
 
