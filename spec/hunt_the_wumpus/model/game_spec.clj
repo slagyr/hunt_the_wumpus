@@ -4,7 +4,8 @@
     [hunt-the-wumpus.model.game]
     [hunt-the-wumpus.model.report :only (hazard-report player-report item-report game-over-report)]
     [hunt-the-wumpus.model.item :only (items-of items-in place-item)]
-    [hunt-the-wumpus.model.player :only (place-player)]))
+    [hunt-the-wumpus.model.player :only (place-player kill-player player-dead?)]
+    [hunt-the-wumpus.model.hazard :only (place-hazard)]))
 
 (describe "Game"
 
@@ -40,7 +41,28 @@
       (perform-command @game "Thor" (fn [game player] game))
       (should= [] (items-in @@game 1))
       (should= [:arrow] (items-of @@game "Thor")))
+
+    (it "player dies when meeting the wumpus"
+      (dosync
+        (alter @game place-hazard "wumpus" 1))
+      (let [command (fn [game player] game)]
+        (perform-command @game "Thor" command)
+        (should= true (player-dead? @@game "Thor"))))
+
+    (it "dead players are not allowed to do stuff"
+      (dosync
+        (alter @game kill-player "Thor" "wumpus"))
+      (let [command (fn [game player] (assoc game :fooey true))]
+        (perform-command @game "Thor" command)
+        (should= nil (:fooey @@game))))
+
+    (it "reports a player is dead"
+      (dosync
+        (alter @game kill-player "Thor" "wumpus"))
+      (let [report (perform-command @game "Thor" (fn [game player] game))]
+        (should= "Your game is over. Go in peace." (:error report))))
     )
+
 
   (it "reports hazards"
     (binding [hazard-report (fn [& args] ["Woohoo!"])]
@@ -51,7 +73,7 @@
     (binding [game-over-report (fn [& args] ["Oh noez..."])]
       (let [report (perform-command (ref (new-game)) "player-1" (fn [game player]))]
         (should= {:game-over-messages ["Oh noez..."]}
-                 report))))
+          report))))
 
   (it "reports player events"
     (binding [player-report (fn [& args] ["Yahoo!"])]

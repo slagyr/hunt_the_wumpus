@@ -40,4 +40,21 @@
                 :caverns {1 {:west 2}}}]
       (should-throw (move-player-in-direction game "Thor" "E"))))
 
+  (it "kills a player"
+    (let [game {:players {"Thor" {:cavern 1}}}
+          game (kill-player game "Thor" "wumpus")]
+      (should= true (player-dead? game "Thor"))))
+
+  (it "Shouldn't kill Thor"
+    (let [game {:players {"Thor" {:cavern 1}}}
+          thor (some
+                (fn [[player-name player-attrs]]
+                  (if (= "Thor" player-name)
+                    player-attrs
+                    nil))
+                (:players game))]
+      (should= {:cavern 1} thor)
+      (should-not (player-dead? game thor))))
+
   )
+

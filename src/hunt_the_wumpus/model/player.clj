@@ -27,3 +27,8 @@
 (defn go-east [game player] (move-player-in-direction game player :east))
 (defn go-west [game player] (move-player-in-direction game player :west))
 
+(defn kill-player [game player cause-of-death]
+  (update-in game [:players player] assoc :cause-of-death cause-of-death))
+
+(defn player-dead? [game player]
+  (boolean (get-in game [:players player :cause-of-death])))

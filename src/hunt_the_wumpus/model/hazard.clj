@@ -10,5 +10,8 @@
 (defn place-hazard [game hazard cavern]
   (update-in game [:hazards (keyword hazard)] conj cavern))
 
+(defn hazard-locations [game hazard]
+  (get-in game [:hazards hazard]))
+
 
 

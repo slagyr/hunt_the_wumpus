@@ -8,3 +8,5 @@ If the player moves into a cavern that contains the Wumpus, the wumpus kills the
 |enter command|E|for|player|
 |check|message|You were killed by the Wumpus.|was printed|true|
 |check|message|You can go east.|was printed|false|
+|enter command|E|for|player|
+|check|error message|Your game is over. Go in peace.|
