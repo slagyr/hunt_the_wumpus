@@ -38,6 +38,20 @@
         nearby-hazards (hazards-adjacent-to game origin)]
     (map report-hazard nearby-hazards)))
 
+(defmulti report-game-over identity)
+(defmethod report-game-over :wumpus [hazard]
+  "You were killed by the Wumpus.")
+
+(defn- game-enders-at [game location]
+  (let [occupying-space? (fn [[hazard caverns]] (some #{location} caverns))
+        hazards-occupying-space (filter occupying-space? (:hazards game))]
+    (map first hazards-occupying-space)))
+
+(defn game-over-report [game player]
+  (let [origin (player-location game player)
+        game-enders (game-enders-at game origin)]
+    (map report-game-over game-enders)))
+
 (defn- report-found-items [[item count]]
   (format
     "You found %s %s%s."

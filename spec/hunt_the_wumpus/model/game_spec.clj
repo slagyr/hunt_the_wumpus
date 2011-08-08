@@ -2,7 +2,7 @@
   (:use
     [speclj.core]
     [hunt-the-wumpus.model.game]
-    [hunt-the-wumpus.model.report :only (hazard-report player-report item-report)]
+    [hunt-the-wumpus.model.report :only (hazard-report player-report item-report game-over-report)]
     [hunt-the-wumpus.model.item :only (items-of items-in place-item)]
     [hunt-the-wumpus.model.player :only (place-player)]))
 
@@ -46,6 +46,12 @@
     (binding [hazard-report (fn [& args] ["Woohoo!"])]
       (let [report (perform-command (ref (new-game)) "player-1" (fn [game player]))]
         (should= ["Woohoo!"] (:hazard-messages report)))))
+
+  (it "reports the end of the game"
+    (binding [game-over-report (fn [& args] ["Oh noez..."])]
+      (let [report (perform-command (ref (new-game)) "player-1" (fn [game player]))]
+        (should= {:game-over-messages ["Oh noez..."]}
+                 report))))
 
   (it "reports player events"
     (binding [player-report (fn [& args] ["Yahoo!"])]

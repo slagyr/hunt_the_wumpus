@@ -46,6 +46,10 @@
       (let [game (place-player @game "Thor" 2)]
         (should= ["You smell the Wumpus."] (hazard-report game "Thor"))))
 
+    (it "reports death by wumpus"
+      (let [game (place-player @game "Thor" 1)]
+        (should= ["You were killed by the Wumpus."] (game-over-report game "Thor"))))
+
     (it "reports arrow status"
       (should= ["You have no arrows."] (item-report @game @game "Thor"))
       (let [after (add-items @game "Thor" [:arrow])]

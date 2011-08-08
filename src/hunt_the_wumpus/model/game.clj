@@ -4,7 +4,7 @@
     [hunt-the-wumpus.model.hazard :only (place-hazard)]
     [hunt-the-wumpus.model.map :only (donut-map)]
     [hunt-the-wumpus.model.player :only (player-location)]
-    [hunt-the-wumpus.model.report :only (cavern-report hazard-report player-report item-report)]))
+    [hunt-the-wumpus.model.report :only (cavern-report game-over-report hazard-report player-report item-report)]))
 
 (defn new-game [& args]
   (let [options (apply hash-map args)]
@@ -14,10 +14,12 @@
      :players (or (:players options) {})}))
 
 (defn report [before after player]
-  {:hazard-messages (hazard-report after player)
-   :player-messages (player-report before after player)
-   :item-messages (item-report before after player)
-   :cavern-messages (cavern-report after player)})
+  (if-let [game-over-report (seq (game-over-report after player))]
+    {:game-over-messages game-over-report}
+    {:hazard-messages (hazard-report after player)
+     :player-messages (player-report before after player)
+     :item-messages (item-report before after player)
+     :cavern-messages (cavern-report after player)}))
 
 (defn pick-up-items [game player]
   (let [cavern (player-location game player)
