@@ -5,7 +5,8 @@
     [hunt-the-wumpus.model.game :only (new-game)]
     [hunt-the-wumpus.model.player :only (place-player)]
     [hunt-the-wumpus.model.hazard :only (place-hazard)]
-    [hunt-the-wumpus.model.map :only (donut-map)]))
+    [hunt-the-wumpus.model.map :only (donut-map)]
+    [hunt-the-wumpus.model.item :only (add-items)]))
 
 (describe "Reporting"
 
@@ -45,5 +46,18 @@
       (let [game (place-player @game "Thor" 2)]
         (should= ["You smell the Wumpus."] (hazard-report game "Thor"))))
 
+    (it "reports arrow status"
+      (should= ["You have no arrows."] (item-report @game @game "Thor"))
+      (let [after (add-items @game "Thor" [:arrow])]
+        (should=
+          ["You found an arrow." "You have 1 arrow."]
+          (item-report @game after "Thor"))))
+
+    (it "reports multiple arrows"
+      (let [after (add-items @game "Thor" [:arrow :arrow])]
+        (should=
+          ["You found 2 arrows." "You have 2 arrows."]
+          (item-report @game after "Thor"))))
     )
   )
+

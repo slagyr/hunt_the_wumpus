@@ -2,7 +2,8 @@
   (:use
     [clojure.set :only (difference)]
     [hunt-the-wumpus.model.map :only (possible-paths)]
-    [hunt-the-wumpus.model.player :only (player-location)]))
+    [hunt-the-wumpus.model.player :only (player-location)]
+    [hunt-the-wumpus.model.item :only (items-of)]))
 
 (defn cavern-report [game player]
   (map #(format "You can go %s." (name %))
@@ -36,3 +37,31 @@
   (let [origin (player-location game player)
         nearby-hazards (hazards-adjacent-to game origin)]
     (map report-hazard nearby-hazards)))
+
+(defn- report-found-items [[item count]]
+  (format
+    "You found %s %s%s."
+    (if (= 1 count) "an" count)
+    (name item)
+    (if (= 1 count) "" "s")))
+
+(defn- report-current-items [[item count]]
+  (format
+    "You have %s %s%s."
+    (if (= 0 count) "no" count)
+    (name item)
+    (if (= 1 count) "" "s")))
+
+(defn subtract-items [before after]
+  (into {}
+    (map
+      (fn [item] [item (- (or (get after item) 0) (or (get before item) 0))])
+      (set (concat (keys before) (keys after))))))
+
+(defn item-report [before after player]
+  (let [items-before (frequencies (items-of before player))
+        items-after (frequencies (items-of after player))
+        new-items (subtract-items items-before items-after)]
+    (concat
+      (map report-found-items new-items)
+      (map report-current-items (merge {:arrow 0} items-after)))))

@@ -13,32 +13,31 @@
       (should= {"Thor" {:cavern 1}} (:players after))))
 
   (it "moves a player to the same location"
-    (let [game {:players {"player-1" {:cavern 1}}}]
-      (move-player-to-location game "player-1" 1)
-      (should= 1 (player-location game "player-1"))))
+    (let [game {:players {"Thor" {:cavern 1}}}]
+      (move-player-to-location game "Thor" 1)
+      (should= 1 (player-location game "Thor"))))
 
   (it "moves a player to a different location"
-    (let [game {:players {"player-1" {:cavern 1}}}
-          game (move-player-to-location game "player-1" 5)]
-      (should= 5 (player-location game "player-1"))))
+    (let [game {:players {"Thor" {:cavern 1}}}
+          game (move-player-to-location game "Thor" 5)]
+      (should= 5 (player-location game "Thor"))))
 
   (it "moves a player in a direction"
-    (let [game {:players {"player-1" {:cavern 1}}
+    (let [game {:players {"Thor" {:cavern 1}}
                 :caverns {1 {:east 2}}}
-          game (move-player-in-direction game "player-1" :east)]
-      (should= 2 (player-location game "player-1"))))
+          game (move-player-in-direction game "Thor" :east)]
+      (should= 2 (player-location game "Thor"))))
 
   (it "moves a player in a wrong direction"
-    (let [game {:players {"player-1" {:cavern 1}}
+    (let [game {:players {"Thor" {:cavern 1}}
                 :caverns {1 {:west 2}}}]
       (should-throw
         Exception "You can't go east from here."
-        (move-player-in-direction game "player-1" :east))))
+        (move-player-in-direction game "Thor" :east))))
 
   (it "moves a player in an illegal direction"
-    (let [game {:players {"player-1" {:cavern 1}}
-                :caverns {1 {:west 2}}
-                :messages []}]
-      (should-throw (move-player-in-direction game "player-1" "E"))))
+    (let [game {:players {"Thor" {:cavern 1}}
+                :caverns {1 {:west 2}}}]
+      (should-throw (move-player-in-direction game "Thor" "E"))))
 
   )

@@ -12,4 +12,12 @@
     (let [game (place-hazard (new-game) :wumpus 1)]
       (should= [1] (:wumpus (:hazards game)))))
 
+  (it "can place a hazard as keyword"
+    (let [game (place-hazard (new-game) "wumpus" 1)]
+      (should= [1] (:wumpus (:hazards game)))))
+
+  (it "knows that wumpus is a hazard"
+    (should= true (hazard? "wumpus"))
+    (should= true (hazard? :wumpus)))
+
   )

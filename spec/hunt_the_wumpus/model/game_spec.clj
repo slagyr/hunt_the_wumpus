@@ -2,7 +2,9 @@
   (:use
     [speclj.core]
     [hunt-the-wumpus.model.game]
-    [hunt-the-wumpus.model.report :only (hazard-report player-report)]))
+    [hunt-the-wumpus.model.report :only (hazard-report player-report item-report)]
+    [hunt-the-wumpus.model.item :only (items-of items-in place-item)]
+    [hunt-the-wumpus.model.player :only (place-player)]))
 
 (describe "Game"
 
@@ -26,6 +28,20 @@
       (should= "player-1" (:foo @game-ref))
       (should= ["You can go east."] (:cavern-messages report))))
 
+  (context "with arrows"
+    (with game
+      (ref
+        (-> (new-game :caverns {1 {:east 2}})
+          (place-player "Thor" 1)
+          (place-item :arrow 1))))
+
+    (it "players pick up items in the current room"
+      (should= [:arrow] (items-in @@game 1))
+      (perform-command @game "Thor" (fn [game player] game))
+      (should= [] (items-in @@game 1))
+      (should= [:arrow] (items-of @@game "Thor")))
+    )
+
   (it "reports hazards"
     (binding [hazard-report (fn [& args] ["Woohoo!"])]
       (let [report (perform-command (ref (new-game)) "player-1" (fn [game player]))]
@@ -35,4 +51,10 @@
     (binding [player-report (fn [& args] ["Yahoo!"])]
       (let [report (perform-command (ref (new-game)) "player-1" (fn [game player]))]
         (should= ["Yahoo!"] (:player-messages report)))))
-    )
+
+  (it "reports on items"
+    (binding [item-report (fn [& args] ["Stuff!"])]
+      (let [report (perform-command (ref (new-game)) "player-1" (fn [game player]))]
+        (should= ["Stuff!"] (:item-messages report)))))
+  )
+

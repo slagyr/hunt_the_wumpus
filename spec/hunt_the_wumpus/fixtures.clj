@@ -5,7 +5,8 @@
     [hunt-the-wumpus.model.game :as game :only (perform-command)]
     [hunt-the-wumpus.model.map :only (add-paths opposite-direction)]
     [hunt-the-wumpus.model.player :only (place-player player-location move-player-in-direction)]
-    [hunt-the-wumpus.model.hazard :only (place-hazard)]))
+    [hunt-the-wumpus.model.item :only (add-items place-item item? items-in)]
+    [hunt-the-wumpus.model.hazard :only (place-hazard hazard?)]))
 
 (def game-ref (ref (game/new-game)))
 (def last-report (atom nil))
@@ -43,7 +44,8 @@
 (defn put-in-cavern [this thing location]
   (dosync
     (cond
-      (some #{"wumpus"} [thing]) (alter game-ref place-hazard (keyword thing) location)
+      (hazard? thing) (alter game-ref place-hazard thing location)
+      (item? thing) (alter game-ref place-item thing location)
       :else (alter game-ref place-player thing location))))
 
 (defn- command-spec->thunk [command-spec player]
@@ -56,19 +58,16 @@
     (fn [game player] (throw (Exception. command-spec)))))
 
 (defn enter-command-for [this raw-command player]
+  (println "@game-ref before: " @game-ref)
   (let [command-spec (translate-command raw-command)
         thunk (command-spec->thunk command-spec player)
         report (perform-command game-ref player thunk)]
-    (reset! last-report report)))
+    (reset! last-report report)
+    (println "@last-report: " @last-report)
+  (println "@game-ref after: " @game-ref)))
 
 (defn error-message [this]
   (:error @last-report))
-
-;(defn possible-directions-message [this]
-;  (string/join ","
-;    (sort
-;      (map name
-;        (:possible-directions @last-report)))))
 
 (defn cavern-has [this n player]
   (= n (player-location @game-ref player)))
@@ -83,11 +82,17 @@
 (defn freeze-wumpus [this v]
   )
 
-(defn set-quiver-to [this quiver]
-  )
+(defn set-quiver-to-for [this quiver player]
+  (dosync
+    (loop [quiver (Integer/parseInt quiver) game @game-ref]
+      (when (> quiver 0)
+        (recur (dec quiver) (add-items game player [:arrow]))))))
 
 (defn arrows-in-cavern [this cavern]
-  )
+  (or
+    (:arrow (frequencies (items-in @game-ref cavern)))
+    0))
+
 
 (defn arrows-in-quiver [this]
   )

@@ -6,7 +6,7 @@
 |freeze wumpus|true|
 |put|${OBJECT}|in cavern|1|
 |put|player|in cavern|3|
-|ensure|enter command|w|for|player|
+|enter command|w|for|player|
 |check|message|${MESSAGE}|was printed|true|
 |enter command|e|for|player|
 |check|message|${MESSAGE}|was printed|false|
