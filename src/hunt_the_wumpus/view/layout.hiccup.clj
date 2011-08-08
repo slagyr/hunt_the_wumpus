@@ -7,7 +7,8 @@
   (include-js "/javascript/jquery.min.js" "/javascript/hunt_the_wumpus.js")]
  [:body
   [:div#title
-   [:img {:src "/images/title.png"}]]
+   [:a {:href "/"}
+    [:img {:src "/images/title.png"}]]]
   (eval (:template-body joodo.views/*view-context*))
   ]
  ]
