@@ -76,7 +76,7 @@ div#report p {
     margin: 0 0 5px 0;
 }
 
-div#report p.direction {
+div#report p.cavern {
     color: #666;
 }
 
@@ -84,8 +84,16 @@ div#report p.hazzard {
     color: red;
 }
 
+div#report p.player {
+    color: #006363;
+}
+
+div#report p.item {
+    color: #85004b;
+}
+
 div#report p.error {
-    color: #009999;
+    color: #ff7400;
 }
 
 div#movement, div#shooting {

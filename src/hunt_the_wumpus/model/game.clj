@@ -1,6 +1,8 @@
 (ns hunt-the-wumpus.model.game
   (:use
-    [hunt-the-wumpus.model.item :only (items-in add-items unplace-items)]
+    [hunt-the-wumpus.model.item :only (items-in add-items unplace-items place-item)]
+    [hunt-the-wumpus.model.hazard :only (place-hazard)]
+    [hunt-the-wumpus.model.map :only (donut-map)]
     [hunt-the-wumpus.model.player :only (player-location)]
     [hunt-the-wumpus.model.report :only (cavern-report hazard-report player-report item-report)]))
 
@@ -11,7 +13,7 @@
      :items (or (:items options) {})
      :players (or (:players options) {})}))
 
-(defn- report [before after player]
+(defn report [before after player]
   {:hazard-messages (hazard-report after player)
    :player-messages (player-report before after player)
    :item-messages (item-report before after player)
@@ -38,3 +40,10 @@
       (catch Exception e
         (.printStackTrace e)
         {:error (.getMessage e)}))))
+
+(def *game*
+  (ref
+    (-> (new-game :caverns (donut-map))
+      (place-hazard :wumpus 5)
+      (place-item :arrow 3)
+      (place-item :arrow 7))))

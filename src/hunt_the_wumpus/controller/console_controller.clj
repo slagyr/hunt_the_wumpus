@@ -5,8 +5,12 @@
     [joodo.middleware.request :only (*request*)]
     [joodo.views :only (render-template)]))
 
+(defn- show-console []
+  (let [report (or (:report (:session *request*)) {})]
+    (render-template "/console/show" :report report)))
+
 (defroutes console-controller
-  (GET "/console" [] (render-template "/console/show"))
+  (GET "/console" [] (show-console))
   )
 
 

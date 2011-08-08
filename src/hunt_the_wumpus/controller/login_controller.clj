@@ -3,12 +3,14 @@
     [compojure.core]
     [ring.util.response :only (redirect)]
     [joodo.middleware.request :only (*request*)]
-    [joodo.views :only (render-template)]))
+    [joodo.views :only (render-template)]
+    [hunt-the-wumpus.model.game :only (*game* perform-command)]
+    [hunt-the-wumpus.model.player :only (join-game)]))
 
 (defn- successful-login [name]
-  (assoc
-    (redirect "/console")
-    :session {:player-name name}))
+  (let [report (perform-command *game* name join-game)]
+    (-> (redirect "/console")
+      (update-in [:session] assoc :player-name name :report report))))
 
 (defn- process-login []
   (let [params (:params *request*)

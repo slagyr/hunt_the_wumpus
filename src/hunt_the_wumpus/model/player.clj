@@ -22,3 +22,8 @@
       (move-player-to-location game player new-location)
       (throw (Exception. (str "You can't go " (name direction) " from here."))))))
 
+(defn go-north [game player] (move-player-in-direction game player :north))
+(defn go-south [game player] (move-player-in-direction game player :south))
+(defn go-east [game player] (move-player-in-direction game player :east))
+(defn go-west [game player] (move-player-in-direction game player :west))
+
